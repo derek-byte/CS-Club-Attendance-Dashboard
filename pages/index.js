@@ -1,7 +1,105 @@
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
 import clientPromise from '../lib/mongodb'
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import "tailwindcss/tailwind.css";
 
-export default function Home({isConnected}) {
+// import './globals.css'
+
+export default function Home(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { push } = useRouter();
+
+  const handleLoginSubmit = () => {
+    axios.post('http://localhost:3000/api/login')
+    .then(response => {
+      setIsLoggedIn(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
+
+  // useEffect(() => {
+  //   // push({
+  //   //   pathname: '/home',
+  //   //   query: { name: 'Someone' }
+  //   // })
+  //   if (props?.query?.logout)
+      
+  // }, [props.query]);
+
+  const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleEmailChange = (e) => {
+      setEmail(e.target.value);
+    };
+  
+    const handlePasswordChange = (e) => {
+      setPassword(e.target.value);
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      try {
+        const { data } = await axios.post("/api/login", {
+          email, password
+        })
+        if (data.data && !props?.query?.logout) 
+          // setIsLoggedIn(true);
+          push({
+            pathname: '/home',
+            query: { name: data }
+          }, "/home")
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-900">
+      <form className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-gray-200 text-sm font-bold mb-2" htmlFor="email">
+            Email:
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline bg-gray-700"
+            id="email"
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block text-gray-200 text-sm font-bold mb-2" htmlFor="password">
+            Password:
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700"
+            id="password"
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </div>
+        <div className="flex items-center justify-center">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+    );
+  }
+
   return (
     <div className="container">
       <Head>
@@ -10,55 +108,20 @@ export default function Home({isConnected}) {
       </Head>
 
       <main>
+        <Login/>
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js with MongoDB!</a>
         </h1>
 
-        {isConnected ? (
-          <h2 className="subtitle">You are connected to MongoDB</h2>
-        ) : (
-          <h2 className="subtitle">
-            You are NOT connected to MongoDB. Check the <code>README.md</code>{' '}
-            for instructions.
-          </h2>
-        )}
-
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+        <h2 className="subtitle">You are connected to MongoDB</h2>
 
         <div className="grid">
           <a href="https://nextjs.org/docs" className="card">
             <h3>Documentation &rarr;</h3>
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
         </div>
-        <div>
+        {/* <div>
           <h1> Registraion </h1>
           <form action="/api/register" method="post">
             <label>
@@ -74,7 +137,7 @@ export default function Home({isConnected}) {
           </form>
 
           <h1>Login</h1>
-          <form action="/api/login" method="post">
+          <form onSubmit={handleLoginSubmit} method="post">
             <label>
               EMail Address
             </label>
@@ -86,7 +149,7 @@ export default function Home({isConnected}) {
             <input type='submit' value='Login'></input>
 
           </form>
-        </div>
+        </div> */}
       </main>
 
       <footer>
@@ -117,6 +180,7 @@ export default function Home({isConnected}) {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          // background-color: red;
         }
 
         footer {
@@ -233,6 +297,7 @@ export default function Home({isConnected}) {
             flex-direction: column;
           }
         }
+        
       `}</style>
 
       <style jsx global>{`
