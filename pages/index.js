@@ -12,7 +12,7 @@ export default function Home(props) {
   const { push } = useRouter();
 
   const handleLoginSubmit = () => {
-    axios.post('http://localhost:3000/api/login')
+    axios.post('http://localhost:3000/api/auth/login')
     .then(response => {
       setIsLoggedIn(response.data);
     })
@@ -46,7 +46,7 @@ export default function Home(props) {
       e.preventDefault();
 
       try {
-        const { data } = await axios.post("/api/login", {
+        const { data } = await axios.post("/api/auth/login", {
           email, password
         })
         if (data.data && !props?.query?.logout) 
