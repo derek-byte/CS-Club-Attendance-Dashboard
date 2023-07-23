@@ -4,9 +4,6 @@ import clientPromise from '../lib/mongodb'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Login from './login';
-import "tailwindcss/tailwind.css";
-
-// import './globals.css'
 
 export default function Home(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,18 +56,6 @@ export default function Home(props) {
       </nav>
 
       <Login/>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js with MongoDB!</a>
-      </h1>
-
-      <h2 className="subtitle">You are connected to MongoDB</h2>
-
-      <div className="grid">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-      </div>
       {/* <div>
         <h1> Registraion </h1>
         <form action="/api/register" method="post">
@@ -101,39 +86,6 @@ export default function Home(props) {
         </form>
       </div> */}
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
-
-      <style jsx global>{`
-        html,
-        #__next {
-          width: 100%;
-          // background-color: #1a202c;
-          margin: 0;
-          padding: 0;
-        }
-        body {
-          padding: 0;
-          margin: 0;
-          // background-color: #1a202c;
-          background-color: rgb(38 38 38);
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
   )
 }
