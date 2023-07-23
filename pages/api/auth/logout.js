@@ -1,14 +1,9 @@
 import connect from "../../../lib/mongodb";
-import User from '../../../model/schema';
 import { serialize } from "cookie";
 
-connect()
+connect();
 
-export default async function handler(req, res){
-    const {email,password}=req.body
-    console.log(email, password)
-    const user = await User.findOne({email, password})
-
+export default async function handler(req, res) {
     const { cookies } = req;
 
     const jwt = cookies.OursiteJWT;

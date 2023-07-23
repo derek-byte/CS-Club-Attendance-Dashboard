@@ -1,7 +1,7 @@
 import { withRouter } from 'next/router'
 import axios from 'axios';
 
-function Home(props){
+function Home(props) {
   const handleLogout = async (e) => {
     e.preventDefault();
 
