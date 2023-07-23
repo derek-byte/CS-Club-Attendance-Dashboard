@@ -49,6 +49,8 @@ export default function Home(props) {
         const { data } = await axios.post("/api/auth/login", {
           email, password
         })
+        console.log(data)
+        handleGetUser();
         if (data.data && !props?.query?.logout) 
           // setIsLoggedIn(true);
           push({
@@ -59,6 +61,12 @@ export default function Home(props) {
         console.log(err);
       }
     }
+
+    const handleGetUser = async () => {
+      const user = await axios.get("/api/user");
+  
+      console.log("HI", user);
+    };
 
     return (
       <div className="flex justify-center items-center h-screen">
@@ -100,6 +108,12 @@ export default function Home(props) {
     );
   }
 
+  const handleLogout = async () => {
+    const user = await axios.get("/api/auth/logout");
+
+    console.log(user);
+  };
+
   return (
     <div>
       <Head>
@@ -114,7 +128,7 @@ export default function Home(props) {
             <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mr-4 transition-colors duration-300">
               Login
             </button>
-            <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
+            <button onClick={() => {handleLogout();}} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
               Sign Up
             </button>
           </div>
