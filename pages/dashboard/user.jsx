@@ -32,6 +32,11 @@ export default function User({ctx}) {
         console.log("HI", user);
     };
 
+    const handleLogOut = async () => {
+      const user = await axios.get("/api/auth/logout");
+      router.push("/login");
+    }
+
     useEffect(() => {
         console.log(displayUsers());
         // handleGetUser();
@@ -39,8 +44,11 @@ export default function User({ctx}) {
     }, [])
 
     return (
+      <div>
+        <button onClick={() => handleLogOut()}> Logout </button>
         <h1>
             Sensitive Data
         </h1>
+      </div>
     );
 }

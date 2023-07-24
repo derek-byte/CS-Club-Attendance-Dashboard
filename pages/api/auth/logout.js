@@ -12,11 +12,11 @@ export default async function handler(req, res) {
         return res.json({ message: "Bro you are already not logged in..." });
     } else {
         const serialised = serialize("siteJWT", null, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== "development",
-        sameSite: "strict",
-        maxAge: -1,
-        path: "/",
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== "development",
+            sameSite: "strict",
+            maxAge: -1,
+            path: "/",
         });
 
         res.setHeader("Set-Cookie", serialised);
