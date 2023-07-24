@@ -1,12 +1,17 @@
-// Protect Routes
-export default async function (req, res) {
+import { verify } from 'jsonwebtoken';
+
+const secret = process.env.SECRET || "";
+
+export default async function userAPI(req, res) {
+  try {
     const { cookies } = req;
+    const jwt = cookies.siteJWT;
+
+    const user = await verify(jwt, secret)
   
-    const jwt = cookies.OursiteJWT;
-  
-    if (!jwt) {
-      return res.json({ message: "Invalid token!" });
-    }
-  
-    return res.json({ data: "Top secret data!" });
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
   }
+}

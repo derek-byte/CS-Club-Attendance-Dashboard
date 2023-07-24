@@ -1,22 +1,23 @@
 import { NextResponse } from "next/server";
-import verify from "jsonwebtoken/verify";
+import { jwtVerify } from 'jose';
 
-const secret = process.env.SECRET;
 
-export default function middleware(req) {
-    console.log("MIDDLE WARE")
+const secret = process.env.SECRET || "";
+
+export default async function middleware(req) {
+
     const { origin } = req.nextUrl
-    const { cookies } = req;
-    const jwt = cookies.OursiteJWT;
-    const url = req.url;
+    const { cookies, url } = req;
+
+    const jwt = cookies.get('siteJWT')?.value;
 
     if (url.includes("/login")) {
         if (jwt) {
             try {
-                verify(jwt, secret);
-                return NextResponse.redirect(`${origin}/`);
+                await jwtVerify(jwt, new TextEncoder().encode(secret))
+                return NextResponse.redirect(`${origin}/dashboard/user`);
             } catch (e) {
-                return NextResponse.redirect(`${origin}/login`);
+                // return NextResponse.redirect(`${origin}/login`);
             }
         }
     }
@@ -27,7 +28,7 @@ export default function middleware(req) {
         }
 
         try {
-            verify(jwt, secret);
+            await jwtVerify(jwt, new TextEncoder().encode(secret))
             return NextResponse.next();
         } catch (e) {
             return NextResponse.redirect(`${origin}/login`);

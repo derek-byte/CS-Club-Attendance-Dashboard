@@ -6,12 +6,12 @@ connect();
 export default async function handler(req, res) {
     const { cookies } = req;
 
-    const jwt = cookies.OursiteJWT;
+    const jwt = cookies.siteJWT;
 
     if (!jwt) {
         return res.json({ message: "Bro you are already not logged in..." });
     } else {
-        const serialised = serialize("OursiteJWT", null, {
+        const serialised = serialize("siteJWT", null, {
         httpOnly: true,
         secure: process.env.NODE_ENV !== "development",
         sameSite: "strict",

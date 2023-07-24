@@ -4,7 +4,7 @@ import { serialize } from "cookie";
 import connect from "../../../lib/mongodb";
 import User from '../../../model/schema';
 
-const secret = process.env.SECRET;
+const secret = process.env.SECRET || "";
 connect();
 
 export default async function handler(req,res) {
@@ -20,7 +20,7 @@ export default async function handler(req,res) {
         secret
       );
   
-      const serialised = serialize("OursiteJWT", token, {
+      const serialised = serialize("siteJWT", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV !== "development",
         sameSite: "strict",

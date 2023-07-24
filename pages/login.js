@@ -37,12 +37,6 @@ export default function Login() {
         }
     }
 
-    const handleGetUser = async () => {
-        const user = await axios.get("/api/user");
-    
-        console.log("HI", user);
-    };
-
     return (
         <div className="flex justify-center items-center h-screen">
         <form className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
