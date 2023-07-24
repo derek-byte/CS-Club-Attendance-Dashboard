@@ -22,7 +22,7 @@ function Home(props) {
   console.log("USER", props)
   return (
     <div>
-      <div>Hi</div>
+      <div>Home</div>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
