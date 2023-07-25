@@ -8,6 +8,12 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [newEmail, setNewEmail] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [fName, setFName] = useState("");
+    const [lName, setLName] = useState("");
+    const [grade, setGrade] = useState("");
+
     const [logIn, setLogin] = useState(true);
 
     const router = useRouter();
@@ -37,9 +43,9 @@ export default function Login() {
 
     return (
     <div className="height-full flex justify-center items-center flex-col">
-        <div className='min-w-[30rem]'>
+        <div className='max-w-[35rem] min-h-[35rem]'>
 
-            <div className='min-w-[30rem] flex'>
+            <div className='flex'>
                 <button className={`flex-1 !rounded-b-none !rounded-tr-none rounded-tl-md ${logIn ? "" : "contrast"}`} onClick={() => setLogin(true)}>Log In</button>
                 <button className={`flex-1 !rounded-b-none !rounded-tl-none rounded-tr-md ${logIn ? "contrast" : ""}`} onClick={() => setLogin(false)}>Register</button>
             </div>
@@ -75,19 +81,43 @@ export default function Login() {
                 <p className='text-gray-400 mt-2'>Register a new account</p>
 
                 <input 
+                    type='text'
+                    placeholder="first name"
+                    className='w-full mt-8'
+                    value={fName}
+                    onChange={(e) => setFName(e.target.value)}
+                    required
+                />
+                <input 
+                    type='text'
+                    placeholder="last name"
+                    className='w-full mt-2'
+                    value={lName}
+                    onChange={(e) => setLName(e.target.value)}
+                    required
+                />
+                <input 
+                    type='number'
+                    placeholder="grade"
+                    className='w-full mt-2'
+                    value={grade}
+                    onChange={(e) => setGrade(e.target.value)}
+                    required
+                />
+                <input 
                     type='email'
                     placeholder="email"
-                    className='w-full mt-8'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    className='w-full mt-2'
+                    value={newEmail}
+                    onChange={(e) => setNewEmail(e.target.value)}
                     required
                 />
                 <input 
                     type='password'
                     placeholder="password"
                     className='w-full mt-2'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
                     required
                 />
 
