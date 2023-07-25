@@ -9,14 +9,14 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-neutral-900">
-      <div className="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center">
-        <span className="text-white text-2xl font-semibold">CS Club Attendance</span>
+    <nav className="w-full flex justify-center absolute top-0 bg-background border-b-2 border-b-slate-700">
+      <div className="max-w-6xl w-full px-4 py-6 flex justify-between items-center">
+        <h1 className="text-white text-2xl font-semibold">CS Club Attendance</h1>
         <div>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mr-4 transition-colors duration-300">
+          <button className="">
             Login
           </button>
-          <button onClick={() => {handleLogout();}} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
+          <button onClick={() => {handleLogout();}} className="">
             Sign Up
           </button>
         </div>
