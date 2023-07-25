@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { jwtVerify } from 'jose';
 
-
 const secret = process.env.SECRET || "";
 
 export default async function middleware(req) {
@@ -10,6 +9,20 @@ export default async function middleware(req) {
     const { cookies, url } = req;
 
     const jwt = cookies.get('siteJWT')?.value;
+
+    // if (url)
+    if (url.split('')[url.split('').length - 1] === "/") {
+        if (jwt === undefined) {
+            return NextResponse.redirect(`${origin}/login`);
+        }
+
+        try {
+            await jwtVerify(jwt, new TextEncoder().encode(secret))
+            return NextResponse.next();
+        } catch (e) {
+            return NextResponse.redirect(`${origin}/login`);
+        }
+    }
 
     if (url.includes("/login")) {
         if (jwt) {

@@ -8,11 +8,9 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const router = useRouter();
+    const [logIn, setLogin] = useState(true);
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
+    const router = useRouter();
     
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
@@ -38,40 +36,67 @@ export default function Login() {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen">
-        <form className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-        <div className="mb-4">
-            <label className="block text-gray-200 text-sm font-bold mb-2" htmlFor="email">
-            Email:
-            </label>
-            <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 leading-tight focus:outline-none focus:shadow-outline bg-gray-700"
-                id="email"
-                type="email"
-                value={email}
-                onChange={handleEmailChange}
-            />
+    <div className="height-full flex justify-center items-center flex-col">
+        <div className='min-w-[30rem]'>
+
+            <div className='min-w-[30rem] flex'>
+                <button className={`flex-1 !rounded-b-none !rounded-tr-none rounded-tl-md ${logIn ? "" : "contrast"}`} onClick={() => setLogin(true)}>Log In</button>
+                <button className={`flex-1 !rounded-b-none !rounded-tl-none rounded-tr-md ${logIn ? "contrast" : ""}`} onClick={() => setLogin(false)}>Register</button>
+            </div>
+
+            {logIn ? <form className="border-2 border-backgroundaccent rounded-md p-12 border-t-transparent rounded-t-none" onSubmit={handleSubmit}>
+                <h2 className='text-2xl'>Welcome back</h2>
+                <p className='text-gray-400 mt-2'>Log in to your account</p>
+
+                <input 
+                    type='email'
+                    placeholder="email"
+                    className='w-full mt-8'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <input 
+                    type='password'
+                    placeholder="password"
+                    className='w-full mt-2'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+
+                <button className='w-full mt-8' type='submit'>
+                    Log In
+                </button>
+            </form> : 
+            
+            <form className="border-2 border-backgroundaccent rounded-md p-12 border-t-transparent rounded-t-none" onSubmit={handleSubmit}>
+                <h2 className='text-2xl'>Welcome to CS Club</h2>
+                <p className='text-gray-400 mt-2'>Register a new account</p>
+
+                <input 
+                    type='email'
+                    placeholder="email"
+                    className='w-full mt-8'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <input 
+                    type='password'
+                    placeholder="password"
+                    className='w-full mt-2'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+
+                <button className='w-full mt-8' type='submit'>
+                    Register
+                </button>
+            </form>
+            }
         </div>
-        <div className="mb-6">
-            <label className="block text-gray-200 text-sm font-bold mb-2" htmlFor="password">
-            Password:
-            </label>
-            <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-200 mb-3 leading-tight focus:outline-none focus:shadow-outline bg-gray-700"
-                id="password"
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-            />
-        </div>
-        <div className="flex items-center justify-center">
-            <button
-                type="submit"
-            >
-            Submit
-            </button>
-        </div>
-        </form>
     </div>
     );
 }

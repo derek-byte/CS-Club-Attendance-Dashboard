@@ -16,12 +16,17 @@ h1, h2, h3, h4 {
   font-family: 'Roboto Mono', monospace;
 }
 
+p {
+  color: theme('colors.text');
+  font-family: 'Inter', sans-serif;
+}
+
 button:not(.no-styles) {
   font-family: 'Roboto Mono', monospace;
   padding: 0.5rem 1rem;
-  border-radius: 5px;
+  border-radius: 6px;
   background-color: theme('colors.accent');
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
   color: black;
 
   &:hover {
@@ -29,7 +34,26 @@ button:not(.no-styles) {
   }
 
   &.contrast {
-    background-color: theme('colors.dimmed');
+    background-color: theme('colors.backgroundaccent');
     color: theme('colors.text');
   }
+}
+
+input, select, textarea {
+  background-color: theme('colors.backgroundaccent');
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px;
+  color: theme('colors.text') !important;
+  opacity: 0.9;
+
+  transition: opacity 0.2s ease-in-out;
+
+  &:focus, &:active {
+    outline: none;
+    opacity: 1;
+  }
+}
+
+.height-full {
+  height: calc(100dvh - 90px);
 }

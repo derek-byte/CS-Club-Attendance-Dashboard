@@ -8,9 +8,10 @@ module.exports = {
     extend: {
       colors: {
         background: "#111827",
+        backgroundaccent: "#334155",
         accent: "#3b81f6",
-        dimmed: "#334155",
-        text: "#ddd"
+        text: "#ddd",
+        textdimmed: "#9ca3af"
       }
     },
   },
