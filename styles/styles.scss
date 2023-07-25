@@ -7,11 +7,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
-
+  
   background-color: theme('colors.background');
 }
 
 h1, h2, h3, h4 {
+  color: theme('colors.text');
   font-family: 'Roboto Mono', monospace;
 }
 
@@ -21,8 +22,14 @@ button:not(.no-styles) {
   border-radius: 5px;
   background-color: theme('colors.accent');
   transition: opacity 0.2s ease-in-out;
+  color: black;
 
   &:hover {
     opacity: 0.8;
+  }
+
+  &.contrast {
+    background-color: theme('colors.dimmed');
+    color: theme('colors.text');
   }
 }
