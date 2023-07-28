@@ -5,6 +5,7 @@ import axios from 'axios';
 import "tailwindcss/tailwind.css";
 
 import { AiOutlineWarning } from 'react-icons/ai';
+import { BiCloudUpload } from 'react-icons/bi';
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -26,26 +27,31 @@ export default function Login() {
         setPassword(e.target.value);
     };
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
         const credentials = { email, password };
 
-        if (parseInt(grade) < 9 || parseInt(grade) > 13) { 
-            setAlert(['Grade must be between 9 and 13', 'error', <AiOutlineWarning />]);
-            return
-        }
-
+        setAlert(['Working...', 'waiting', <BiCloudUpload/>])
+        
         try {
             const { data } = await axios.post("/api/auth/login", credentials)
-            console.log(data.status);
 
             if (data.status === 200) {
                 router.push("/dashboard/user");
             }
-            // handleGetUser();
         } catch (err) {
             console.log(err);
+            setAlert([err.message, 'error', <AiOutlineWarning />])
+        }
+    }
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+
+        if (parseInt(grade) < 9 || parseInt(grade) > 13) { 
+            setAlert(['Grade must be between 9 and 13', 'error', <AiOutlineWarning />]);
+            return
         }
     }
 
@@ -54,11 +60,11 @@ export default function Login() {
         <div className='max-w-[35rem] min-h-[35rem]'>
 
             <div className='flex'>
-                <button className={`flex-1 !rounded-b-none !rounded-tr-none rounded-tl-md ${logIn ? "" : "contrast"}`} onClick={() => setLogin(true)}>Log In</button>
-                <button className={`flex-1 !rounded-b-none !rounded-tl-none rounded-tr-md ${logIn ? "contrast" : ""}`} onClick={() => setLogin(false)}>Register</button>
+                <button className={`flex-1 !rounded-b-none !rounded-tr-none rounded-tl-md ${logIn ? "" : "contrast"}`} onClick={() => {setLogin(true); setAlert(['', '', <></>])}}>Log In</button>
+                <button className={`flex-1 !rounded-b-none !rounded-tl-none rounded-tr-md ${logIn ? "contrast" : ""}`} onClick={() => {setLogin(false); setAlert(['', '', <></>])}}>Register</button>
             </div>
 
-            {logIn ? <form className="border-2 border-backgroundaccent rounded-md p-12 border-t-transparent rounded-t-none" onSubmit={handleSubmit}>
+            {logIn ? <form className="border-2 border-backgroundaccent rounded-md p-12 border-t-transparent rounded-t-none" onSubmit={handleLogin}>
                 <h2 className='text-2xl'>Welcome back</h2>
                 <p className='text-gray-400 mt-2'>Log in to your account</p>
 
@@ -82,9 +88,17 @@ export default function Login() {
                 <button className='w-full mt-8' type='submit'>
                     Log In
                 </button>
+                {(alert[0] !== '' && alert[1] !== '') && (
+                    <div
+                        className={`${alert[1]} p-2 rounded-md mt-2 flex items-center gap-2`}
+                    >
+                        {alert[2]}
+                        {alert[0]}
+                    </div>
+                )}
             </form> : 
             
-            <form className="border-2 border-backgroundaccent rounded-md p-12 border-t-transparent rounded-t-none" onSubmit={handleSubmit}>
+            <form className="border-2 border-backgroundaccent rounded-md p-12 border-t-transparent rounded-t-none" onSubmit={handleRegister}>
                 <h2 className='text-2xl'>Welcome to CS Club</h2>
                 <p className='text-gray-400 mt-2'>Register a new account</p>
 
