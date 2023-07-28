@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 import axios from 'axios';
@@ -16,6 +16,8 @@ export default function Login() {
 
     const [logIn, setLogin] = useState(true);
 
+    const [alert, setAlert] = useState(['', '', <></>]); // argument one is text, argument two is className (warning/success/error), argument three is icon
+
     const router = useRouter();
     
     const handlePasswordChange = (e) => {
@@ -23,10 +25,14 @@ export default function Login() {
     };
 
     const handleSubmit = async (e) => {
-        console.log("SUBMIT")
         e.preventDefault();
 
         const credentials = { email, password };
+
+        if (parseInt(grade) < 9 || parseInt(grade) > 13) { 
+            setAlert(['Grade must be between 9 and 13', 'warning', <></>]);
+            return
+        }
 
         try {
             const { data } = await axios.post("/api/auth/login", credentials)
@@ -124,6 +130,14 @@ export default function Login() {
                 <button className='w-full mt-8' type='submit'>
                     Register
                 </button>
+                {(alert[0] !== '' && alert[1] !== '') && (
+                    <div
+                        className={`${alert[1]} p-2 rounded-md mt-2`}
+                    >
+                        {alert[2]}
+                        {alert[0]}
+                    </div>
+                )}
             </form>
             }
         </div>

@@ -57,3 +57,19 @@ input, select, textarea {
 .height-full {
   height: calc(100dvh - 90px);
 }
+
+.success {
+  @apply bg-green-300 text-gray-800
+}
+
+.error {
+  @apply bg-red-400 text-white
+}
+
+.warning {
+  @apply bg-yellow-200 text-gray-800
+}
+
+.waiting {
+  @apply bg-slate-400 text-gray-800
+}
