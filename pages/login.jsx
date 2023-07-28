@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import axios from 'axios';
 import "tailwindcss/tailwind.css";
 
+import { AiOutlineWarning } from 'react-icons/ai';
+
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -30,7 +32,7 @@ export default function Login() {
         const credentials = { email, password };
 
         if (parseInt(grade) < 9 || parseInt(grade) > 13) { 
-            setAlert(['Grade must be between 9 and 13', 'warning', <></>]);
+            setAlert(['Grade must be between 9 and 13', 'error', <AiOutlineWarning />]);
             return
         }
 
@@ -132,7 +134,7 @@ export default function Login() {
                 </button>
                 {(alert[0] !== '' && alert[1] !== '') && (
                     <div
-                        className={`${alert[1]} p-2 rounded-md mt-2`}
+                        className={`${alert[1]} p-2 rounded-md mt-2 flex items-center gap-2`}
                     >
                         {alert[2]}
                         {alert[0]}
