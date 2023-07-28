@@ -53,6 +53,25 @@ export default function Login() {
             setAlert(['Grade must be between 9 and 13', 'error', <AiOutlineWarning />]);
             return
         }
+
+        const credentials = {
+            email: newEmail, 
+            password: newPassword, 
+            first_name: fName, 
+            last_name: lName, 
+            grade: grade
+        };
+
+        try {
+            const { data } = await axios.post("/api/register", credentials)
+
+            if (data.status === 200) {
+                router.push("/dashboard/user");
+            }
+        } catch (err) {
+            console.log(err);
+            setAlert([err.message, 'error', <AiOutlineWarning />])
+        }
     }
 
     return (

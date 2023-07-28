@@ -21,11 +21,16 @@ const userSchema = new Schema({
     },
     username: {
         type:String,
-        required:true
+        required:false,
+        unique:true
+    },
+    role: {
+        type:String,
+        required:false
     },
     attendance: {
         type:Number,
-        required: false
+        required:false
     }
 });
 

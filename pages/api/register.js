@@ -14,8 +14,8 @@ export default async function handler(req,res){
         message: "User already exists! Try logging in. 😄",
         type: "warning",
       });
-
-    const user = await User.create(req.body);
+      
+    const user = await User.create({...req.body, role: "student"});
     res.status(200).json({
       message: "User created successfully! 🥳",
       type: "success",
