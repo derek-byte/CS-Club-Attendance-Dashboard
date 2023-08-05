@@ -15,7 +15,11 @@ export default async function handler(req,res) {
       const token = sign(
         {
           exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30, // 30 days
-          email: email
+          email: email,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          role: user.role,
+          attendance: user.attendance
         },
         secret
       );

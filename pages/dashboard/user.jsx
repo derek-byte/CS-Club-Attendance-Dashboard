@@ -9,6 +9,7 @@ export default function User({ctx}) {
     // ctx.res.removeHeader('X-HEADER');
 
     console.log("DATA", ctx)
+    const [data, setData] = useState({});
 
     const displayUsers = async () => {
         try {
@@ -20,6 +21,7 @@ export default function User({ctx}) {
           
         //   setUsersResults(fetchedUsers);
           console.log(fetchedUsers)
+          setData(fetchedUsers)
       
         } catch (error) {
           console.log(error);
@@ -41,12 +43,19 @@ export default function User({ctx}) {
         console.log(displayUsers());
         // handleGetUser();
         // console.log("DATA", data)
-    }, [])
+    }, []);
+
+    const handleAttendanceSubmit = async () => {
+      const result = await axios.post("/api/attendance");
+      console.log("RESULT", result)
+    };
 
     return (
       <div>
+        <button onClick={handleAttendanceSubmit}> Add Attendance </button>
         <button onClick={() => handleLogOut()}> Logout </button>
         <h1>
+          {data.role === "admin" ? <div>Admin</div> : null}
             Sensitive Data
         </h1>
       </div>
