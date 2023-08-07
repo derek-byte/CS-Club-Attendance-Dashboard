@@ -24,6 +24,10 @@ const userSchema = new Schema({
         required:false,
         unique:true
     },
+    grade: {
+        type: Number,
+        required: false,
+    },
     role: {
         type:String,
         required:false
