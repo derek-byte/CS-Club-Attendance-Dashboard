@@ -10,6 +10,7 @@ export default function User({ctx}) {
 
     console.log("DATA", ctx)
     const [data, setData] = useState({});
+    const [code, setCode] = useState("");
 
     const displayUsers = async () => {
         try {
@@ -46,7 +47,25 @@ export default function User({ctx}) {
     }, []);
 
     const handleAttendanceSubmit = async () => {
-      const result = await axios.post("/api/attendance");
+      try {
+        const options = {
+          email: data.email,
+          inputtedCode: code
+        };
+        const result = await axios.post("/api/verifyAttendance", options);
+        console.log("RESULT", result)
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const createAttendanceCode = () => {
+      setCode(Math.floor(100000 + Math.random() * 900000).toString());
+    }
+
+    const handleCreateAttendance = async () => {
+      createAttendanceCode();
+      const result = await axios.post("/api/createAttendance", {attendanceCode: code});
       console.log("RESULT", result)
     };
 
@@ -54,6 +73,7 @@ export default function User({ctx}) {
       <div>
         <button onClick={handleAttendanceSubmit}> Add Attendance </button>
         <button onClick={() => handleLogOut()}> Logout </button>
+        <button onClick={handleCreateAttendance}> Create Attendance </button>
         <h1>
           {data.role === "admin" ? <div>Admin</div> : null}
             Sensitive Data

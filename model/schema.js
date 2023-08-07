@@ -31,6 +31,14 @@ const userSchema = new Schema({
     attendance: {
         type:Number,
         required:false
+    },
+    attendanceCode: {
+        type:String,
+        required:false
+    },
+    prevAttendanceCode: {
+        type:String,
+        required:false
     }
 });
 

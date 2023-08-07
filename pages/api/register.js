@@ -15,7 +15,7 @@ export default async function handler(req,res){
         type: "warning",
       });
 
-    const user = await User.create({...req.body, role: "student", attendance: 0});
+    const user = await User.create({...req.body, role: "student", attendance: 0, attendanceCode: " "});
     res.status(200).json({
       message: "User created successfully! 🥳",
       type: "success",

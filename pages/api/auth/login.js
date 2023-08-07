@@ -19,7 +19,8 @@ export default async function handler(req,res) {
           first_name: user.first_name,
           last_name: user.last_name,
           role: user.role,
-          attendance: user.attendance
+          attendance: user.attendance,
+          prevAttendanceCode: user.attendanceCode
         },
         secret
       );
