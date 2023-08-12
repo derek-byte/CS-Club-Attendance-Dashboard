@@ -75,17 +75,16 @@ export default function Login() {
     }
 
     return (
-    <div className="height-full flex justify-center items-center flex-col">
-        <div className='max-w-[35rem] min-h-[35rem]'>
-
+    <div className="height-full w-full flex justify-center ">
+        <div className='lg:w-1/2 mx-4 h-2/3 mt-12 lg:mt-24'>
             <div className='flex'>
                 <button className={`flex-1 !rounded-b-none !rounded-tr-none rounded-tl-md ${logIn ? "" : "contrast"}`} onClick={() => {setLogin(true); setAlert(['', '', <></>])}}>Log In</button>
                 <button className={`flex-1 !rounded-b-none !rounded-tl-none rounded-tr-md ${logIn ? "contrast" : ""}`} onClick={() => {setLogin(false); setAlert(['', '', <></>])}}>Register</button>
             </div>
 
-            {logIn ? <form className="border-2 border-backgroundaccent rounded-md p-12 border-t-transparent rounded-t-none" onSubmit={handleLogin}>
-                <h2 className='text-2xl'>Welcome back</h2>
-                <p className='text-gray-400 mt-2'>Log in to your account</p>
+            {logIn ? <form className="border-2 border-backgroundaccent rounded-md p-4 lg:p-12 border-t-transparent rounded-t-none" onSubmit={handleLogin}>
+                <h2 className='text-2xl w-full'>Welcome back</h2>
+                <p className='text-gray-400 mt-2 w-full'>Log in to your account</p>
 
                 <input 
                     type='email'
@@ -117,7 +116,7 @@ export default function Login() {
                 )}
             </form> : 
             
-            <form className="border-2 border-backgroundaccent rounded-md p-12 border-t-transparent rounded-t-none" onSubmit={handleRegister}>
+            <form className="border-2 border-backgroundaccent rounded-md p-4 lg:p-12 border-t-transparent rounded-t-none" onSubmit={handleRegister}>
                 <h2 className='text-2xl'>Welcome to CS Club</h2>
                 <p className='text-gray-400 mt-2'>Register a new account</p>
 
