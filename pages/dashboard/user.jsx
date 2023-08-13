@@ -72,8 +72,8 @@ export default function User({ctx}) {
     return (
       <div className="flex">
         <div className="flex items-center">
-          <div className="p-8 mx-5 max-w-md w-full min-h-screen border-r-2 border-blue-600">
-            <h2 className="text-2xl font-semibold mb-4">Welcome {data.first_name} {data.last_name}</h2>
+          <div className="p-8 mx-1 max-w-md w-full min-h-screen border-r-2 border-slate-700">
+            <h2 className="text-2xl font-semibold mb-4">Welcome {data.first_name} {data.last_name} 👋</h2>
             <div className="space-y-4">
               <p>
                 <strong>Email:</strong> {data.email}

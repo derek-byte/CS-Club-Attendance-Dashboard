@@ -5,8 +5,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     const user = await axios.get("/api/auth/logout");
-
-    console.log(user);
+    router.push("/login");
   };
 
   const router = useRouter();
@@ -16,9 +15,14 @@ export default function Navbar() {
       <div className="max-w-6xl w-full px-4 py-6 flex justify-between items-center">
         <h1 className="text-xl font-semibold">CS Club Attendance</h1>
         <div className='flex items-center gap-2'>
-          <button onClick={() => router.push('/login')}>
-            Log In
-          </button>
+          {router.pathname !== "/dashboard/user" ? 
+            <button onClick={() => router.push('/login')}>
+              Log In
+            </button> : 
+            <button onClick={handleLogout}>
+              Log Out
+            </button>
+          }
         </div>
       </div>
     </nav>
