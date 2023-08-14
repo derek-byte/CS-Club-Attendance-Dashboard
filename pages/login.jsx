@@ -38,7 +38,7 @@ export default function Login() {
             const { data } = await axios.post("/api/auth/login", credentials)
 
             if (data.status === 200) {
-                router.push("/dashboard/user");
+                router.push("/dashboard");
             }
         } catch (err) {
             console.log(err);
@@ -66,7 +66,7 @@ export default function Login() {
             const { data } = await axios.post("/api/register", credentials)
 
             if (data.status === 200) {
-                router.push("/dashboard/user");
+                router.push("/dashboard");
             }
         } catch (err) {
             console.log(err);

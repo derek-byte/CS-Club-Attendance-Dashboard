@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useRouter } from "next/router";
 
-export default function User({ctx}) {
+export default function Attendance({ctx}) {
     const router = useRouter();
     console.log("ROUTER", router)
     // const data = ctx.res.getHeader('X-HEADER');
@@ -33,6 +33,8 @@ export default function User({ctx}) {
         const user = await axios.get("/api/user");
     
         console.log("HI", user);
+
+        setData(user.data);
     };
 
     const handleLogOut = async () => {
@@ -41,9 +43,7 @@ export default function User({ctx}) {
     }
 
     useEffect(() => {
-        console.log(displayUsers());
-        // handleGetUser();
-        // console.log("DATA", data)
+      handleGetUser();
     }, []);
 
     const handleAttendanceSubmit = async () => {
@@ -52,22 +52,27 @@ export default function User({ctx}) {
           email: data.email,
           inputtedCode: code
         };
-        const result = await axios.post("/api/verifyAttendance", options);
+        const result = await axios.post("/api/attendance/verifyAttendance", options);
         console.log("RESULT", result)
       } catch (e) {
         console.log(e);
       }
     };
 
-    const createAttendanceCode = () => {
+    const handleCreateRandomAttendanceCode = async (e) => {
+      e.preventDefault();
       setCode(Math.floor(100000 + Math.random() * 900000).toString());
+      const result = await axios.post("/api/attendance/createAttendance", {attendanceCode: code});
+      console.log("RESULT", result)
     }
 
-    const handleCreateAttendance = async () => {
-      createAttendanceCode();
-      const result = await axios.post("/api/createAttendance", {attendanceCode: code});
+    const handleCreateAttendanceCode = async (e) => {
+      e.preventDefault();
+      const result = await axios.post("/api/attendance/createAttendance", {attendanceCode: code});
       console.log("RESULT", result)
     };
+
+    console.log(data.role, data.role === 'admin')
 
     return (
       <div className="flex">
@@ -87,15 +92,21 @@ export default function User({ctx}) {
             </div>
           </div>
         </div>
+        {data.role === 'admin' && 
         <div className="p-8">
-          <button onClick={handleAttendanceSubmit}> Add Attendance </button>
-          <button onClick={() => handleLogOut()}> Logout </button>
-          <button onClick={handleCreateAttendance}> Create Attendance </button>
-          <h1>
-            {data.role === "admin" ? <div>Admin</div> : null}
-              Sensitive Data
-          </h1>
+          <p>Hello. You are an admin, which means you have the ability to edit the attendance code.</p>
+          <h1 className="mt-8 text-2xl font-bold">Edit Attendance</h1>
+          <br/><p>The current attendance code is: {code}</p>
+          <h2 className='mt-8 text-xl font-bold'>Random Attendance Code</h2>
+          <button onClick={handleCreateRandomAttendanceCode} className="mt-4"> Create randomly generated attendance code </button>
+          <h2 className='mt-8 text-xl font-bold'>Custom Attendance Code</h2>
+          <form onSubmit={handleCreateAttendanceCode} className='mt-4'>
+            <input type='number' placeholder='code' value={code} onChange={e => setCode(parseInt(e.target.value))} required></input><br/>
+            <button onClick={handleAttendanceSubmit} className='mt-2' type='submit'> Add custom attendance code </button>
+          </form>
+          <button onClick={() => handleLogOut()} className='mt-8'> Logout </button>
         </div>
+        }
       </div>
     );
 }

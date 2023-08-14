@@ -1,5 +1,5 @@
-import connect from "../../lib/mongodb";
-import User from '../../model/schema';
+import connect from "../../../lib/mongodb";
+import User from '../../../model/schema';
 
 import { verify } from 'jsonwebtoken';
 
