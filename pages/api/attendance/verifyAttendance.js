@@ -21,9 +21,11 @@ export default async function handler(req,res) {
 
             const result = await User.findOneAndUpdate(conditions, update);
 
-            if(result){
+            if (result) {
                 return res.status(200).json({ status: 200, message: "Success!" });
             }
+        } else {
+            return res.status(200).json({ status: 200, message: "Wrong code buddy" });
         }
     } catch (error) {
         return res.status(400).json({status:'Not able to update attendance'});

@@ -12,6 +12,8 @@ export default function Attendance({ctx}) {
     const [data, setData] = useState({});
     const [code, setCode] = useState("");
 
+    const [inputCode, setInputCode] = useState("")
+
     const displayUsers = async () => {
         try {
           console.log('FETCHING DOCUMENTS');
@@ -46,12 +48,14 @@ export default function Attendance({ctx}) {
       handleGetUser();
     }, []);
 
-    const handleAttendanceSubmit = async () => {
+    const handleAttendanceSubmit = async (e) => {
+      e.preventDefault();
       try {
         const options = {
           email: data.email,
-          inputtedCode: code
+          inputtedCode: inputCode
         };
+        console.log(inputCode)
         const result = await axios.post("/api/attendance/verifyAttendance", options);
         console.log("RESULT", result)
       } catch (e) {
@@ -102,9 +106,19 @@ export default function Attendance({ctx}) {
           <h2 className='mt-8 text-xl font-bold'>Custom Attendance Code</h2>
           <form onSubmit={handleCreateAttendanceCode} className='mt-4'>
             <input type='number' placeholder='code' value={code} onChange={e => setCode(parseInt(e.target.value))} required></input><br/>
-            <button onClick={handleAttendanceSubmit} className='mt-2' type='submit'> Add custom attendance code </button>
+            <button className='mt-2' type='submit'> Add custom attendance code </button>
           </form>
           <button onClick={() => handleLogOut()} className='mt-8'> Logout </button>
+        </div>
+        }
+        {data.role === 'student' &&
+        <div className='p-8'>
+          <p>Hello. You are a student. Welcome to CS Club! Here's where you'll be inputting the attendance code each week after the club meeting.</p>
+          <h2 className='mt-8 text-xl font-bold'>Input Attendance Code</h2>
+          <form onSubmit={handleAttendanceSubmit} className='mt-4'>
+            <input type='number' placeholder='code' value={inputCode} onChange={e => setInputCode(parseInt(e.target.value))} required></input><br/>
+            <button className='mt-2' type='submit'> Submit attendance </button>
+          </form>
         </div>
         }
       </div>
