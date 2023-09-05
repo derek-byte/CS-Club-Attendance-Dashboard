@@ -39,7 +39,7 @@ function Home({ctx}) {
         console.log("HI", user);
 
         setData(user.data);
-        setCode(user?.data?.currAttendanceCode)
+        // setCode(user?.data?.currAttendanceCode)
     };
 
     const handleLogOut = async () => {
@@ -149,7 +149,6 @@ function Home({ctx}) {
                 )}
                 <button className='mt-2' type='submit'> Add custom attendance code </button>
               </form>
-              <button onClick={() => handleLogOut()} className='mt-8'> Logout </button>
             </div>
           }
         </div>
