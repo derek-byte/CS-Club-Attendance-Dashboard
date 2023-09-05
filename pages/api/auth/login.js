@@ -10,7 +10,7 @@ connect();
 export default async function handler(req,res) {
     const {email, password} = req.body
     const user = await User.findOne({email, password})
-
+    console.log("ATTENDANCE", user)
     if (user) {
       const token = sign(
         {
@@ -20,7 +20,8 @@ export default async function handler(req,res) {
           last_name: user.last_name,
           role: user.role,
           attendance: user.attendance,
-          prevAttendanceCode: user.attendanceCode
+          prevAttendanceCode: user.prevAttendanceCode,
+          currAttendanceCode: user.role === "admin" ? user.attendanceCode : null
         },
         secret
       );

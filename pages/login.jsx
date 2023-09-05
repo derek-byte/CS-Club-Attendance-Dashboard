@@ -38,7 +38,7 @@ export default function Login() {
             const { data } = await axios.post("/api/auth/login", credentials)
 
             if (data.status === 200) {
-                router.push("/dashboard/attendance");
+                router.push("/dashboard");
             }
         } catch (err) {
             console.log(err);
@@ -76,7 +76,7 @@ export default function Login() {
 
     return (
     <div className="height-full w-full flex justify-center ">
-        <div className='lg:w-1/2 mx-4 h-2/3 mt-12 lg:mt-24'>
+        <div className='lg:w-1/2 mx-4 h-2/3 mt-12 lg:mt-18'>
             <div className='flex'>
                 <button className={`flex-1 !rounded-b-none !rounded-tr-none rounded-tl-md ${logIn ? "" : "contrast"}`} onClick={() => {setLogin(true); setAlert(['', '', <></>])}}>Log In</button>
                 <button className={`flex-1 !rounded-b-none !rounded-tl-none rounded-tr-md ${logIn ? "contrast" : ""}`} onClick={() => {setLogin(false); setAlert(['', '', <></>])}}>Register</button>
