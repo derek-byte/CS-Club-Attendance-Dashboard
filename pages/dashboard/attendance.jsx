@@ -52,7 +52,7 @@ export default function Attendance({ctx}) {
       e.preventDefault();
       try {
         const options = {
-          email: data.email,
+          email: data?.email,
           inputtedCode: inputCode
         };
         console.log(inputCode)
@@ -79,19 +79,19 @@ export default function Attendance({ctx}) {
     console.log(data.role, data.role === 'admin')
 
     return (
-      <div className="flex">
-        <div className="flex items-center">
-          <div className="p-8 mx-1 max-w-md w-full min-h-screen border-r-2 border-slate-700">
-            <h2 className="text-2xl font-semibold mb-4">Welcome {data.first_name} {data.last_name} 👋</h2>
+      <div className="flex flex-wrap">
+        <div className="flex items-center flex-wrap">
+          <div className="p-8 mx-1 max-w-md w-full sm:min-h-screen border-r-2 border-slate-700">
+            <h2 className="text-2xl font-semibold mb-4">Welcome {data?.first_name} {data?.last_name} 👋</h2>
             <div className="space-y-4">
               <p>
-                <strong>Email:</strong> {data.email}
+                <strong>Email:</strong> {data?.email}
               </p>
               <p>
-                <strong>Grade:</strong> {data.grade}
+                <strong>Grade:</strong> {data?.grade}
               </p>
               <p>
-                <strong>Attendance Score:</strong> {data.attendance}
+                <strong>Attendance Score:</strong> {data?.attendance}
               </p>
             </div>
           </div>
@@ -111,7 +111,7 @@ export default function Attendance({ctx}) {
           <button onClick={() => handleLogOut()} className='mt-8'> Logout </button>
         </div>
         }
-        {data.role === 'student' &&
+        {data.role === 'student' || data.role === 'admin' &&
         <div className='p-8'>
           <p>Hello. You are a student. Welcome to CS Club! Here's where you'll be inputting the attendance code each week after the club meeting.</p>
           <h2 className='mt-8 text-xl font-bold'>Input Attendance Code</h2>

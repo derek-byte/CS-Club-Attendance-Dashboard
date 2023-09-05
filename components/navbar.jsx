@@ -15,7 +15,7 @@ export default function Navbar() {
       <div className="max-w-6xl w-full px-4 py-6 flex justify-between items-center">
         <h1 className="text-xl font-semibold">CS Club Attendance</h1>
         <div className='flex items-center gap-2'>
-          {router.pathname !== "/dashboard/user" ? 
+          {router.pathname === "/login" ? 
             <button onClick={() => router.push('/login')}>
               Log In
             </button> : 
