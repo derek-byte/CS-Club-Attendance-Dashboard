@@ -6,7 +6,7 @@ connect();
 export default async function handler(req,res){
   try {
     const { email, password } = req.body;
-    // 1. check if user already exists
+    // Check if user already exists
     const checkUser = await User.findOne({ email: email });
 
     if (checkUser)
@@ -24,6 +24,6 @@ export default async function handler(req,res){
       return res.json({"code":'User not created'})
     }
   } catch (error) {
-    res.status(400).json({status:'Not able to create a new user.'})
+    res.status(400).json({status:'Not able to create a new user.', error: error})
   }
 }
