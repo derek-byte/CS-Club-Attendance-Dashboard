@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Layout>
       <Head>
-        <title>Create Next App</title>
+        <title>LHSS CS Club</title>
         <link rel="icon" href="/logo.jpg" />
       </Head>
       <Component {...pageProps} />
