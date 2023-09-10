@@ -12,9 +12,10 @@ export default async function userAPI(req, res) {
     const user = await User.findOne({email: token.email});
     const formattedData = {
       ...user._doc,
-      password: ";)"
+      password: null,
+      attendanceCode: user.role === "admin" ? user.attendanceCode : null,
+      prevAttendanceCode: null
     };
-    // console.log("USER", user, formattedData)
     res.json(formattedData);
   } catch (error) {
     console.log(error);

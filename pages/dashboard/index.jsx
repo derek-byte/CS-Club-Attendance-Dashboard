@@ -4,11 +4,7 @@ import axios from 'axios';
 
 function Home({ctx}) {
     const router = useRouter();
-    console.log("ROUTER", router)
-    // const data = ctx.res.getHeader('X-HEADER');
-    // ctx.res.removeHeader('X-HEADER');
 
-    console.log("DATA", ctx)
     const [data, setData] = useState({});
     const [code, setCode] = useState("");
     const [adminAlert, setAdminAlert] = useState(['', '']); 
@@ -18,11 +14,9 @@ function Home({ctx}) {
 
     const displayUsers = async () => {
         try {
-          console.log('FETCHING DOCUMENTS');
           const fetchedUsers = await fetch('/api/user').then((res) =>
             res.json()
           );
-          console.log('FETCHED DOCUMENTS');
           
         //   setUsersResults(fetchedUsers);
           console.log(fetchedUsers)
@@ -35,9 +29,7 @@ function Home({ctx}) {
 
     const handleGetUser = async () => {
         const user = await axios.get("/api/user");
-    
-        console.log("HI", user);
-
+  
         setData(user.data);
         // setCode(user?.data?.currAttendanceCode)
     };
@@ -58,11 +50,8 @@ function Home({ctx}) {
           email: data?.email,
           inputtedCode: inputCode
         };
-        console.log(inputCode)
         const result = await axios.post("/api/attendance/verifyAttendance", options);
         setAlert(["Success", 'success']);
-        // setData({attendance: data.attendance + 1});
-        console.log("RESULT", result)
       } catch (e) {
         console.log(e);
         setAlert([e?.response?.data?.message, 'error'])
@@ -72,9 +61,9 @@ function Home({ctx}) {
     const handleCreateRandomAttendanceCode = async (e) => {
       try {
         e.preventDefault();
-        setCode(Math.floor(100000 + Math.random() * 900000).toString());
-        const result = await axios.post("/api/attendance/createAttendance", {attendanceCode: code});
-        console.log("RESULT", result)
+        const newCode = Math.floor(100000 + Math.random() * 900000).toString();
+        setCode(newCode);
+        const result = await axios.post("/api/attendance/createAttendance", {attendanceCode: newCode});
         setAdminAlert(["Success", 'success']);
       } catch (e) {
         setAdminAlert([e?.response?.data?.message, 'error'])
@@ -85,14 +74,11 @@ function Home({ctx}) {
       try {
         e.preventDefault();
         const result = await axios.post("/api/attendance/createAttendance", {attendanceCode: code});
-        console.log("RESULT", result)
         setAdminAlert(["Success", 'success']);
       } catch (e) {
         setAdminAlert([e?.response?.data?.message, 'error'])
       }
     };
-
-    console.log(data.role, data.role === 'admin')
 
     return (
       <div className="flex flex-wrap">
@@ -134,7 +120,7 @@ function Home({ctx}) {
             <div className="p-8 border-t-2 border-slate-700">
               <p>Hello. You are an admin, which means you have the ability to edit the attendance code.</p>
               <h1 className="mt-8 text-2xl font-bold">Edit Attendance</h1>
-              <br/><p>The current attendance code is: {code}</p>
+              <br/><p>The current attendance code is: {data.attendanceCode}</p>
               <h2 className='mt-8 text-xl font-bold'>Random Attendance Code</h2>
               <button onClick={handleCreateRandomAttendanceCode} className="mt-4"> Create randomly generated attendance code </button>
               <h2 className='mt-8 text-xl font-bold'>Custom Attendance Code</h2>
