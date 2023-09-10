@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import axios from 'axios';
 import "tailwindcss/tailwind.css";
 
-import { AiOutlineWarning } from 'react-icons/ai';
+import { AiOutlineWarning, AiFillCheckCircle } from 'react-icons/ai';
 import { BiCloudUpload } from 'react-icons/bi';
 
 export default function Login() {
@@ -64,7 +64,7 @@ export default function Login() {
 
         try {
             const { data } = await axios.post("/api/register", credentials)
-
+            setAlert(["Success", 'success', <AiFillCheckCircle />])
             if (data.status === 200) {
                 router.push("/dashboard");
             }

@@ -28,7 +28,7 @@ export default async function middleware(req) {
         if (jwt) {
             try {
                 await jwtVerify(jwt, new TextEncoder().encode(secret))
-                return NextResponse.redirect(`${origin}/dashboard/user`);
+                return NextResponse.redirect(`${origin}/dashboard`);
             } catch (e) {
                 // return NextResponse.redirect(`${origin}/login`);
             }
