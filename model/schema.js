@@ -19,11 +19,6 @@ const userSchema = new Schema({
         type:String,
         required:true
     },
-    username: {
-        type:String,
-        required:false,
-        unique:true
-    },
     grade: {
         type: Number,
         required: false,
