@@ -14,7 +14,7 @@ export default async function handler(req,res) {
 
         const token = await verify(jwt, secret);
         const user = await User.findOne({ email: email });
-
+        console.log(parseInt(inputtedCode), parseInt(user.attendanceCode))
         if (parseInt(inputtedCode) !== parseInt(user.attendanceCode)) {
             return res.status(400).json({ status: 400, message: "Wrong code :(" });
         } else if (user.attendanceCode === user.prevAttendanceCode) {
