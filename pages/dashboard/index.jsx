@@ -99,7 +99,7 @@ function Home({ctx}) {
           </div>
         </div>
         <div className="md:w-3/4">
-          {data.role === 'student' || data.role === 'admin' &&
+          {data.role === 'student' || data.role === 'admin' ?
           <div className='p-8'>
             <p>Hello. You are a student. Welcome to CS Club! Here's where you'll be inputting the attendance code each week after the club meeting.</p>
             <h2 className='mt-8 text-xl font-bold'>Input Attendance Code</h2>
@@ -114,8 +114,7 @@ function Home({ctx}) {
                     {alert[0]}
                 </div>
             )}
-          </div>
-          }
+          </div> : null}
           {data.role === 'admin' && 
             <div className="p-8 border-t-2 border-slate-700">
               <p>Hello. You are an admin, which means you have the ability to edit the attendance code.</p>
